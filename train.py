@@ -75,3 +75,27 @@ if __name__ == '__main__':
 
         print('End of epoch %d / %d \t Time Taken: %d sec' % (epoch, opt.n_epochs + opt.n_epochs_decay, time.time() - epoch_start_time))
         model.update_learning_rate()                     # update learning rates at the end of every epoch.
+
+        
+        
+# Example usage:
+# ------------------------------------------
+
+# python -W ignore train.py --name stylegan2_faces_CUT_2 --CUT_mode CUT --gpu_ids 0 --batch_size 1 --num_threads 8 --n_epochs 100 --n_epochs_decay 100 --display_id -1 --dataroot ../dataset/image-to-image 
+
+# (2 A100 GPUs, custom dataset)
+#
+# python -W ignore train.py --name light_transfer --CUT_mode CUT --gpu_ids 0,1 --batch_size 16 --num_threads 8 --n_epochs 100 --n_epochs_decay 100 --display_id -1 --dataroot ../dataset/image-to-image
+
+# (8 A100 GPUs, custom dataset)
+#
+# python -W ignore train.py --name light_transfer --CUT_mode CUT --gpu_ids 0,1,2,3,4,5,6,7 --batch_size 16 --num_threads 16 --n_epochs 100 --n_epochs_decay 100 --display_id -1 --dataroot ../dataset/image-to-image
+
+# (continue training from checkpoint)
+# ------------------------------------------
+# -- epoch # load checkpoint from epoch 10 in checkpoint folder specified by --name param
+# -- epoch_count # resume training from this epoch
+#
+# python -W ignore train.py --name light_transfer --CUT_mode CUT --gpu_ids 0,1,2,3,4,5,6,7 --batch_size 16 --num_threads 16 --n_epochs 100 --n_epochs_decay 100 --display_id -1 --dataroot ../dataset/image-to-image --continue_train --epoch_count 11 --epoch 10
+
+# python -W ignore train.py --name stylegan2_faces_CUT_2 --CUT_mode CUT --gpu_ids 0 --batch_size 1 --num_threads 8 --n_epochs 410 --n_epochs_decay 405 --display_id -1 --dataroot ../dataset/image-to-image-50k-256px --continue_train --epoch_count 401 --epoch 400
